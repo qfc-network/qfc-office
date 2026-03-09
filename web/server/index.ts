@@ -5,6 +5,7 @@ import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
 import { JsonRpcProvider } from "ethers";
+import { AgentSimulator } from "./agents.js";
 
 // --- Types (mirror of v1.0) ---
 interface Member {
@@ -264,6 +265,10 @@ if (fs.existsSync(clientDist)) {
     res.sendFile(path.join(clientDist, "index.html"));
   });
 }
+
+// --- AI Agent Simulator ---
+const sim = new AgentSimulator(loadState, saveState, broadcast);
+sim.start();
 
 const PORT = 3210;
 server.listen(PORT, () => {
