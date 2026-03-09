@@ -1,10 +1,11 @@
-FROM node:22-slim AS builder
+FROM node:22-slim AS build-web
 WORKDIR /app/web
 COPY web/package*.json ./
 RUN npm ci
 COPY web/ .
 RUN npm run build
 
+FROM node:22-slim AS build-web3d
 WORKDIR /app/web3d
 COPY web3d/package*.json ./
 RUN npm ci
@@ -13,8 +14,8 @@ RUN npm run build
 
 FROM node:22-slim
 WORKDIR /app
-COPY --from=builder /app/web/dist ./web/dist
-COPY --from=builder /app/web3d/dist ./web3d/dist
+COPY --from=build-web /app/web/dist ./web/dist
+COPY --from=build-web3d /app/web3d/dist ./web3d/dist
 COPY web/server ./web/server
 COPY web/package*.json ./web/
 WORKDIR /app/web
