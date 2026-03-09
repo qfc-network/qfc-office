@@ -127,8 +127,22 @@ app.post("/api/checkin", (req, res) => {
   const member = findMember(state, name);
   if (!member) return res.status(404).json({ error: "member not found" });
 
+  const wasAlreadyOnline = member.status === "online";
   member.status = "online";
   state.currentUser = member.name;
+
+  if (!wasAlreadyOnline) {
+    state.messages.push({
+      timestamp: new Date().toISOString(),
+      sender: "System",
+      room: member.room,
+      text: `${member.name} checked in`,
+    });
+    if (state.messages.length > 100) {
+      state.messages = state.messages.slice(-100);
+    }
+  }
+
   saveState(state);
   broadcast(state);
   res.json({ ok: true, member });

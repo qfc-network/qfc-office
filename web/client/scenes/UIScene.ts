@@ -5,7 +5,7 @@ import { checkin, checkout, setStatus, sendMessage, fetchChain } from "../utils/
 const PANEL_X = 600;
 const PANEL_W = 280;
 const CANVAS_W = 880;
-const CANVAS_H = 600;
+const CANVAS_H = 640;
 
 export class UIScene extends Phaser.Scene {
   private currentUser: string = "";
@@ -83,10 +83,10 @@ export class UIScene extends Phaser.Scene {
     });
 
     // --- Bottom Bar ---
-    this.bottomBarBg = this.add.rectangle(300, CANVAS_H, 600, 0, 0x16213e).setOrigin(0.5, 1);
-    this.userInfoText = this.add.text(10, CANVAS_H - 2, "", {
-      fontSize: "11px", fontFamily: "'Courier New', monospace", color: "#aaa",
-    }).setOrigin(0, 1);
+    this.bottomBarBg = this.add.rectangle(300, CANVAS_H - 20, 600, 40, 0x16213e).setOrigin(0.5, 0.5);
+    this.userInfoText = this.add.text(10, CANVAS_H - 20, "", {
+      fontSize: "12px", fontFamily: "'Courier New', monospace", color: "#ccc",
+    }).setOrigin(0, 0.5);
 
     // --- HTML Overlays ---
     this.createHTMLOverlays();
@@ -99,13 +99,24 @@ export class UIScene extends Phaser.Scene {
     this.events.on("showMemberInfo", (name: string) => this.showMemberInfo(name));
   }
 
+  private getGameContainer(): HTMLElement {
+    const container = document.getElementById("game-container")!;
+    // Ensure the container is a positioning context for absolute children
+    if (getComputedStyle(container).position === "static") {
+      container.style.position = "relative";
+    }
+    return container;
+  }
+
   private createHTMLOverlays() {
+    const container = this.getGameContainer();
+
     // Chat input
     this.chatInput = document.createElement("input");
     this.chatInput.type = "text";
     this.chatInput.placeholder = "Type a message...";
     Object.assign(this.chatInput.style, {
-      position: "fixed",
+      position: "absolute",
       bottom: "10px",
       right: "14px",
       width: "252px",
@@ -129,13 +140,13 @@ export class UIScene extends Phaser.Scene {
       }
       e.stopPropagation();
     });
-    document.body.appendChild(this.chatInput);
+    container.appendChild(this.chatInput);
 
     // Action buttons
     this.actionBtns = document.createElement("div");
     Object.assign(this.actionBtns.style, {
-      position: "fixed",
-      bottom: "40px",
+      position: "absolute",
+      bottom: "10px",
       left: "10px",
       display: "flex",
       gap: "6px",
@@ -167,12 +178,12 @@ export class UIScene extends Phaser.Scene {
     mkBtn("🔴 Busy", () => setStatus(this.currentUser, "busy", ""));
     mkBtn("🟢 Online", () => setStatus(this.currentUser, "online", ""));
 
-    document.body.appendChild(this.actionBtns);
+    container.appendChild(this.actionBtns);
 
     // Member info popup
     this.memberInfoBox = document.createElement("div");
     Object.assign(this.memberInfoBox.style, {
-      position: "fixed",
+      position: "absolute",
       top: "50%",
       left: "50%",
       transform: "translate(-50%, -50%)",
@@ -192,7 +203,7 @@ export class UIScene extends Phaser.Scene {
     this.memberInfoBox.addEventListener("click", () => {
       this.memberInfoBox.style.display = "none";
     });
-    document.body.appendChild(this.memberInfoBox);
+    container.appendChild(this.memberInfoBox);
   }
 
   private showMemberInfo(name: string) {

@@ -16,32 +16,32 @@ export interface RoomConfig {
 // The right 200px is for the UI panel
 export const ROOM_CONFIGS: RoomConfig[] = [
   {
-    key: "茶水间", label: "Break Room", icon: "☕",
+    key: "茶水间", label: "Break Room 茶水间", icon: "☕",
     x: 0, y: 0, width: 295, height: 175,
     color: 0xfff3e0, borderColor: 0xffe0b2,
   },
   {
-    key: "会议室A", label: "Meeting A", icon: "📋",
+    key: "会议室A", label: "Meeting A 会议室A", icon: "📋",
     x: 305, y: 0, width: 295, height: 175,
     color: 0xe8eaf6, borderColor: 0xc5cae9,
   },
   {
-    key: "工位区", label: "Workstations", icon: "💻",
+    key: "工位区", label: "Workstations 工位区", icon: "💻",
     x: 0, y: 185, width: 295, height: 175,
     color: 0xe3f2fd, borderColor: 0xbbdefb,
   },
   {
-    key: "会议室B", label: "Meeting B", icon: "💻",
+    key: "会议室B", label: "Meeting B 会议室B", icon: "💻",
     x: 305, y: 185, width: 295, height: 175,
     color: 0xfce4ec, borderColor: 0xf8bbd0,
   },
   {
-    key: "大厅", label: "Lobby", icon: "🏢",
+    key: "大厅", label: "Lobby 大厅", icon: "🏢",
     x: 0, y: 370, width: 600, height: 110,
     color: 0xf1f8e9, borderColor: 0xdcedc8,
   },
   {
-    key: "服务器室", label: "Server Room", icon: "🖥️",
+    key: "服务器室", label: "Server Room 服务器室", icon: "🖥️",
     x: 0, y: 490, width: 600, height: 110,
     color: 0xede7f6, borderColor: 0xd1c4e9,
   },

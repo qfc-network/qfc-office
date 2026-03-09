@@ -10,6 +10,17 @@ const nameModal = document.getElementById("name-modal")!;
 const nameInput = document.getElementById("name-input") as HTMLInputElement;
 const nameSubmit = document.getElementById("name-submit")!;
 
+// Populate member datalist from server state
+fetchState().then((state) => {
+  const datalist = document.getElementById("member-list")!;
+  for (const m of state.members) {
+    const opt = document.createElement("option");
+    opt.value = m.name;
+    opt.textContent = `${m.emoji} ${m.name} (${m.chineseName})`;
+    datalist.appendChild(opt);
+  }
+}).catch(() => {});
+
 // Casual → link to CLI docs
 document.getElementById("btn-casual")!.addEventListener("click", () => {
   alert("Run `npm run dev` in the qfc-office root to use the CLI (v1.0).");
@@ -35,7 +46,7 @@ function startGame(userName: string) {
   const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
     width: 880,
-    height: 600,
+    height: 640,
     parent: "game-container",
     backgroundColor: "#f5f5f5",
     scale: {
