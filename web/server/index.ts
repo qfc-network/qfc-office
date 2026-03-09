@@ -246,6 +246,17 @@ setInterval(() => {
 }, 2000);
 
 // --- Serve static files in production ---
+
+// 3D client (web3d)
+const client3dDist = path.join(import.meta.dirname, "../../web3d/dist/client");
+if (fs.existsSync(client3dDist)) {
+  app.use("/3d", express.static(client3dDist));
+  app.get("/3d/*", (_req, res) => {
+    res.sendFile(path.join(client3dDist, "index.html"));
+  });
+}
+
+// 2D client (web)
 const clientDist = path.join(import.meta.dirname, "../dist/client");
 if (fs.existsSync(clientDist)) {
   app.use(express.static(clientDist));

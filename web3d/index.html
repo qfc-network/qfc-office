@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QFC Virtual Office — 3D</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #1a1a2e;
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      color: #e0e0e0;
+    }
+    #app {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+    canvas { display: block; }
+
+    /* Login modal */
+    #login-modal {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+    }
+    #login-modal.hidden { display: none; }
+    #login-modal .modal-box {
+      background: #16213e;
+      border: 2px solid #0f3460;
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+    }
+    #login-modal input {
+      margin-top: 16px;
+      padding: 10px 16px;
+      background: #1a1a2e;
+      border: 2px solid #0f3460;
+      border-radius: 6px;
+      color: #e0e0e0;
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      width: 260px;
+      outline: none;
+    }
+    #login-modal input:focus { border-color: #00d4ff; }
+    #login-modal button {
+      margin-top: 16px;
+      padding: 10px 24px;
+      background: #00d4ff;
+      color: #1a1a2e;
+      border: none;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #login-modal button:hover { background: #00b8d9; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script type="module" src="/client/main.ts"></script>
+</body>
+</html>
