@@ -3,7 +3,7 @@ WORKDIR /app
 COPY qfc-chain-sdk/ ./qfc-chain-sdk/
 WORKDIR /app/web
 COPY web/package*.json ./
-RUN npm ci
+RUN npm install
 COPY web/ .
 RUN npm run build
 
