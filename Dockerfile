@@ -1,6 +1,7 @@
 FROM node:22-slim AS build-web
 WORKDIR /app
 COPY qfc-chain-sdk/ ./qfc-chain-sdk/
+RUN cd qfc-chain-sdk && npm install && npm run build
 WORKDIR /app/web
 COPY web/package*.json ./
 RUN npm install
