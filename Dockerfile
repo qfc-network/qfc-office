@@ -4,7 +4,7 @@ COPY qfc-chain-sdk/ ./qfc-chain-sdk/
 RUN cd qfc-chain-sdk && npm install && npm run build
 WORKDIR /app/web
 COPY web/package*.json ./
-RUN sed -i 's|file:../../qfc-games/qfc-chain-sdk|file:../qfc-chain-sdk|' package.json && npm install
+RUN sed -i 's|file:../../qfc-chain-sdk|file:../qfc-chain-sdk|' package.json && npm install
 COPY web/ .
 RUN npm run build
 
@@ -22,6 +22,6 @@ COPY --from=build-web3d /app/web3d/dist ./web3d/dist
 COPY web/server ./web/server
 COPY web/package*.json ./web/
 WORKDIR /app/web
-RUN sed -i 's|file:../../qfc-games/qfc-chain-sdk|file:../qfc-chain-sdk|' package.json && npm install --omit=dev
+RUN sed -i 's|file:../../qfc-chain-sdk|file:../qfc-chain-sdk|' package.json && npm install --omit=dev
 EXPOSE 3210
 CMD ["npx", "tsx", "server/index.ts"]
