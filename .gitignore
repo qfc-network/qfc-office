@@ -4,3 +4,4 @@ dist/
 *.tsbuildinfo
 web/dist/
 web3d/dist/
+contracts/out/

@@ -1,8 +1,9 @@
 {
   "contract": "OfficeRegistry",
-  "address": "0x9D231E558a3E336248709c9c32023AA59915D8c2",
+  "address": "0x191101A9130C2E6239aC8529fF3A9E50CCd980cC",
   "deployer": "0x5BE349d95787b0B4135CC4CfEe27AD70AC9F3132",
+  "txHash": "0x656ad84d8dc32129f2f9d5ba08ddccb1f6c8e94e07f0541f3289b7365fa37ce5",
   "chainId": 9000,
-  "txHash": "0xf1f36095602f9857a165a4d8feb00abc74ced2a6cafc897de82d9db89ec6a8ba",
-  "timestamp": "2026-03-09T19:54:03.371Z"
+  "rpc": "https://rpc.testnet.qfc.network",
+  "deployedAt": "2026-03-10T00:01:03.827Z"
 }
