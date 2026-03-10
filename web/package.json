@@ -10,7 +10,7 @@
     "build:check": "tsc --noEmit"
   },
   "dependencies": {
-    "@qfc/chain-sdk": "file:../../qfc-games/qfc-chain-sdk",
+    "@qfc/chain-sdk": "file:../../qfc-chain-sdk",
     "ethers": "^6.13.0",
     "express": "^4.21.0",
     "phaser": "^3.80.0",

@@ -25,7 +25,7 @@ jobs:
       - name: Fetch @qfc/chain-sdk and patch file deps for CI
         run: |
           git clone --depth 1 https://github.com/qfc-network/qfc-chain-sdk.git qfc-chain-sdk
-          sed -i 's|file:../qfc-games/qfc-chain-sdk|file:./qfc-chain-sdk|' package.json
+          sed -i 's|file:../qfc-chain-sdk|file:./qfc-chain-sdk|' package.json
 
       - run: npm install
       - run: npm run build
@@ -45,7 +45,7 @@ jobs:
       - name: Fetch @qfc/chain-sdk and patch web file deps for CI
         run: |
           git clone --depth 1 https://github.com/qfc-network/qfc-chain-sdk.git qfc-chain-sdk
-          sed -i 's|file:../../qfc-games/qfc-chain-sdk|file:../qfc-chain-sdk|' web/package.json
+          sed -i 's|file:../../qfc-chain-sdk|file:../qfc-chain-sdk|' web/package.json
 
       - run: cd web && npm install
       - run: cd web && npm run build:check
