@@ -4,7 +4,7 @@ COPY qfc-chain-sdk/ ./qfc-chain-sdk/
 RUN cd qfc-chain-sdk && npm install && npm run build
 WORKDIR /app/web
 COPY web/package*.json ./
-RUN npm install
+RUN sed -i 's|file:../../qfc-games/qfc-chain-sdk|file:../qfc-chain-sdk|' package.json && npm install
 COPY web/ .
 RUN npm run build
 
