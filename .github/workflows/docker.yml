@@ -2,7 +2,7 @@ name: Docker Build & Push
 
 on:
   push:
-    branches: [main]
+    branches: [main, staging]
 
 concurrency:
   group: qfc-office-docker-${{ github.ref }}
@@ -49,5 +49,19 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }}-sha-${{ github.sha }}
+
+      - name: Dispatch qfc-testnet image tag update
+        if: github.ref_type == 'branch'
+        env:
+          SHORT_SHA: ${{ github.sha }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          TAG="${BRANCH}-sha-${SHORT_SHA:0:7}"
+          curl -sf -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.TESTNET_DISPATCH_TOKEN }}" \
+            https://api.github.com/repos/qfc-network/qfc-testnet/dispatches \
+            -d "{\"event_type\":\"image-published\",\"client_payload\":{\"service\":\"qfc-office\",\"tag\":\"${TAG}\",\"branch\":\"${BRANCH}\",\"sha\":\"${{ github.sha }}\"}}"
+          echo "Dispatched qfc-testnet update: ${TAG}"
