@@ -130,7 +130,14 @@
   </style>
 </head>
 <body>
-  <div id="menu-screen">
+  <div id="chain-bar" style="position:fixed;top:0;left:0;right:0;height:32px;background:#111;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:0.75rem;color:#666;z-index:1000;border-bottom:1px solid #222;">
+    <span>QFC Testnet ⛓️ Block <span id="chain-block">#---</span></span>
+    <div>
+      <span id="wallet-info" style="display:none;margin-right:8px;color:#6e6;"><span id="wallet-addr"></span> | <span id="wallet-bal"></span> QFC</span>
+      <button id="btn-connect-wallet" style="padding:2px 10px;border:1px solid #444;border-radius:4px;background:#1a1a2e;color:#aaa;cursor:pointer;font-size:0.75rem;">🔗 Connect Wallet</button>
+    </div>
+  </div>
+  <div id="menu-screen" style="margin-top:32px;">
     <h1>🏢 QFC Virtual Office</h1>
     <h2>Select your mode:</h2>
     <button class="mode-btn" id="btn-casual">
