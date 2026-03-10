@@ -1,4 +1,6 @@
 FROM node:22-slim AS build-web
+WORKDIR /app
+COPY qfc-chain-sdk/ ./qfc-chain-sdk/
 WORKDIR /app/web
 COPY web/package*.json ./
 RUN npm ci
