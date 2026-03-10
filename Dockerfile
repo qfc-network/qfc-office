@@ -22,6 +22,6 @@ COPY --from=build-web3d /app/web3d/dist ./web3d/dist
 COPY web/server ./web/server
 COPY web/package*.json ./web/
 WORKDIR /app/web
-RUN npm ci --omit=dev
+RUN sed -i 's|file:../../qfc-games/qfc-chain-sdk|file:../qfc-chain-sdk|' package.json && npm install --omit=dev
 EXPOSE 3210
 CMD ["npx", "tsx", "server/index.ts"]
