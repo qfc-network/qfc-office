@@ -6,16 +6,28 @@ on:
   pull_request:
     branches: [main]
 
+concurrency:
+  group: qfc-office-ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build-cli:
     name: Build CLI (v1.0)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm ci
+          cache: npm
+
+      - name: Fetch @qfc/chain-sdk and patch file deps for CI
+        run: |
+          git clone --depth 1 https://github.com/qfc-network/qfc-chain-sdk.git qfc-chain-sdk
+          sed -i 's|file:../qfc-games/qfc-chain-sdk|file:./qfc-chain-sdk|' package.json
+
+      - run: npm install
       - run: npm run build
 
   build-web:
@@ -23,10 +35,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: cd web && npm ci
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Fetch @qfc/chain-sdk and patch web file deps for CI
+        run: |
+          git clone --depth 1 https://github.com/qfc-network/qfc-chain-sdk.git qfc-chain-sdk
+          sed -i 's|file:../../qfc-games/qfc-chain-sdk|file:../qfc-chain-sdk|' web/package.json
+
+      - run: cd web && npm install
       - run: cd web && npm run build:check
       - run: cd web && npm run build
 
@@ -35,8 +56,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
+          cache-dependency-path: web3d/package-lock.json
+
       - run: cd web3d && npm ci
       - run: cd web3d && npm run build
